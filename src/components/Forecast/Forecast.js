@@ -1,5 +1,6 @@
 // This component displays the forecast in the city the user inputs
 import React, { useState } from 'react'
+import Conditions from '../Conditions/Conditions'
 const testURL = "https://community-open-weather-map.p.rapidapi.com/weather?q=Seattle"
 
 const Forecast = () => {
@@ -14,7 +15,10 @@ const Forecast = () => {
       }
     })
     .then(response => response.json())
-    .then(response => setResponseObj(response))
+    .then(response => {
+      console.log(response)
+      setResponseObj(response)
+    })
     .catch(err => {
     	console.error(err)
     })
@@ -23,11 +27,9 @@ const Forecast = () => {
   // returns JSX
   return (
     <div>
-      <h1>Find Current Weather Condition (in Seattle)</h1>
-      <div>
-        {JSON.stringify(responseObj)}
-      </div>
+      <h1>Find Current Weather Conditions (in Seattle)</h1>
       <button onClick={getForecast}>Get Forecast</button>
+      <Conditions responseObj={responseObj} />
     </div>
   )
 }
