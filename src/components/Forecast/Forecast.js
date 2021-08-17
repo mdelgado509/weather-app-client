@@ -1,10 +1,20 @@
 // This component displays the forecast in the city the user inputs
 import React, { useState } from 'react'
 import Conditions from '../Conditions/Conditions'
-const testURL = "https://community-open-weather-map.p.rapidapi.com/weather?q=Seattle"
 
 const Forecast = () => {
-  const [responseObj, setResponseObj] = useState({})
+  // state for API response
+  const [responseObj, setResponseObj] = useState({});
+  // state for user input form
+  const [city, setCity] = useState('');
+  const [unit, setUnit] = useState('imperial');
+
+  // this will encode a URI for our city to attach to our URL
+  const cityURI = encodeURIComponent(city);
+
+  // the variable URL used in the API call
+  const testURL = `https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${cityURI}`
+
 
   function getForecast() {
     fetch(testURL, {
@@ -16,11 +26,11 @@ const Forecast = () => {
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response)
-      setResponseObj(response)
+      console.log(response);
+      setResponseObj(response);
     })
     .catch(err => {
-    	console.error(err)
+    	console.error(err);
     })
   }
 
