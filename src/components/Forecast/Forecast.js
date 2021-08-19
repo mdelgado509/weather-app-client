@@ -16,7 +16,8 @@ const Forecast = () => {
   const testURL = `https://community-open-weather-map.p.rapidapi.com/weather?units=${unit}&q=${cityURI}`
 
 
-  function getForecast() {
+  function getForecast(e) {
+    e.preventDefault()
     fetch(testURL, {
       "method": "GET",
       "headers": {
@@ -37,9 +38,31 @@ const Forecast = () => {
   // returns JSX
   return (
     <div>
-      <h1>Find Current Weather Conditions (in Seattle)</h1>
-      <button onClick={getForecast}>Get Forecast</button>
-      <Conditions responseObj={responseObj} />
+      <h1>Find Current Weather Conditions</h1>
+      <form onSubmit={getForecast}>
+        <input
+          type="text"
+          placeholder="Enter city name"
+          value={city}
+          onChange={e => setCity(e.target.value)}
+        />
+        <input
+          type="radio"
+          checked={unit === "imperial"}
+          value="imperial"
+          onChange={e => setUnit(e.target.value)}
+        />
+        <label>Fahrenheit</label>
+        <input
+          type="radio"
+          checked={unit === "metric"}
+          value="metric"
+          onChange={e => setUnit(e.target.value)}
+        />
+        <label>Celcius</label>
+        <button type="submit">Get Forecast</button>
+      </form>
+      <Conditions responseObj={responseObj} unit={unit === "imperial" ? "F" : "C"} />
     </div>
   )
 }

@@ -8,7 +8,7 @@ const Conditions = props => {
       {props.responseObj.cod === 200 ?
           <div>
              <p><strong>{props.responseObj.name}, {props.responseObj.sys.country}</strong></p>
-             <p>It is currently {Math.round(props.responseObj.main.temp)} degrees (Kelvin) out with {props.responseObj.weather[0].description}.</p>
+             <p>It is currently {Math.round(props.responseObj.main.temp)} &deg;{props.unit} out with {props.responseObj.weather[0].description}.</p>
           </div> : null}
     </div>
   )
